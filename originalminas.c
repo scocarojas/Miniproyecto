@@ -20,10 +20,14 @@ tipoCasilla** armarmatriz(int filas,int cols,tipoCasilla **matriz){   // ESTA FU
 }
 /////////////////////////////////////////////////////////////////////////777
 void rellenar(int filas, int cols,tipoCasilla **matriz) {
- 	int i,j;
+ 	int i,j,k,l;
+	srand(time(NULL));
   	for (i = 0; i < filas; i++){
     		for ( j = 0; j < cols; j++){
       			matriz[i][j].cobertura='O';
+			k=(rand()%(filas-2))+1;
+			l=(rand()%(cols-2))+1;
+			matriz[k][l].simbominas='M';
     		}
   	}
 }
@@ -37,12 +41,133 @@ void imprimir(int filas, int cols, tipoCasilla** matriz){
 		printf("|");
 		for (j = 0; j < cols; ++j){
       			
-			printf(" %c ",matriz[i][j].cobertura);
+			printf(" %c\t ",matriz[i][j].cobertura);
 		}
 		printf("|");
    		printf("\n");
 	}
+	printf("\n");
 }
+
+void numerodeminas(int filas,int cols, tipoCasilla** matriz){
+
+	int i,j;
+	for(i=1;i<filas-1;i++){
+		for(j=1;j<cols-1;++j){
+			if(matriz[i][j].simbominas!='M'){
+				if(matriz[i-1][j-1].simbominas=='M'){
+
+					matriz[i][j].numminas+=1;
+				}
+
+				if(matriz[i-1][j].simbominas=='M'){
+
+					matriz[i][j].numminas+=1;
+				}
+
+				if(matriz[i][j-1].simbominas=='M'){
+
+					matriz[i][j].numminas+=1;
+				}
+
+				if(matriz[i+1][j+1].simbominas=='M'){
+
+					matriz[i][j].numminas+=1;
+				}
+
+				if(matriz[i][j+1].simbominas=='M'){
+
+					matriz[i][j].numminas+=1;
+				}	
+				
+				if(matriz[i+1][j].simbominas=='M'){
+
+					matriz[i][j].numminas+=1;
+				}
+
+				if(matriz[i+1][j-1].simbominas=='M'){
+
+					matriz[i][j].numminas+=1;
+				}
+
+				if(matriz[i-1][j+1].simbominas=='M'){
+
+					matriz[i][j].numminas+=1;
+				}
+			}
+		}
+	}
+}
+
+void destapar(int filas, int cols, tipoCasilla** matriz){
+
+	int posFilas,posCols,i,j;
+
+	while(1){
+	
+		printf("Introduzca la posición:\n");
+    		printf("Fila:\n");
+    		scanf("%d", &posFilas);
+    		printf("Columna:\n");
+    		scanf("%d", &posCols);
+    		printf("\n");
+
+    		if(matriz[posFilas][posCols].simbominas=='M'){
+
+    			imprimir(filas,cols,matriz);
+    			printf("Destapaste una mina. Has perdido\n");
+    			break;
+    		}
+    		else{
+			imprimir(filas,cols,matriz);
+			for(i=1;i<filas-1;i++){
+				for(j=1;j<cols-1;++j){
+					if(matriz[i-1][j-1].simbominas=='M'){
+
+						matriz[i][j].cobertura=(char)(matriz[i][j].numminas);
+					}
+
+					if(matriz[i-1][j].simbominas=='M'){
+				
+						matriz[i][j].cobertura=(char)(matriz[i][j].numminas);
+					}
+
+					if(matriz[i][j-1].simbominas=='M'){
+
+						matriz[i][j].cobertura=(char)(matriz[i][j].numminas);
+					}
+
+					if(matriz[i+1][j+1].simbominas=='M'){
+
+						matriz[i][j].cobertura=(char)(matriz[i][j].numminas);
+					}
+
+					if(matriz[i][j+1].simbominas=='M'){
+
+						matriz[i][j].cobertura=(char)(matriz[i][j].numminas);
+					}	
+				
+					if(matriz[i+1][j].simbominas=='M'){
+
+						matriz[i][j].cobertura=(char)(matriz[i][j].numminas);
+					}
+
+					if(matriz[i+1][j-1].simbominas=='M'){
+
+						matriz[i][j].cobertura=(char)(matriz[i][j].numminas);
+					}
+
+					if(matriz[i-1][j+1].simbominas=='M'){
+
+						matriz[i][j].cobertura=(char)(matriz[i][j].numminas);
+					}
+		
+				}
+			}
+    		}
+	}
+}
+
 ////////////////////////////////////////////7
 void main(int argc, char *argv[]){
 
@@ -53,5 +178,7 @@ void main(int argc, char *argv[]){
 	armarmatriz(filas,cols,matriz);
 	rellenar(filas,cols,matriz);
 	imprimir(filas,cols,matriz);
+	numerodeminas(filas,cols,matriz);
+	destapar(filas,cols,matriz);
 }
-# Miniproyecto
+///# Miniproyecto
