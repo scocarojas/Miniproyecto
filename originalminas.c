@@ -149,7 +149,8 @@ void destapar(int filas, int cols, tipoCasilla** matriz, int nminas){
     if(matriz[posFilas][posCols].simbominas=='M'){
     	matriz[posFilas][posCols].cobertura='X';
     	imprimir(filas,cols,matriz);
-		break;
+	printf("Presionaste una mina. Has perdido\n");
+	break;
 		}
 		else{
 			matriz[posFilas][posCols].cobertura=matriz[posFilas][posCols].numminas+'0';
