@@ -26,9 +26,7 @@ void rellenar(int filas, int cols,int nminas,tipoCasilla **matriz) {
 	for (size_t a = 1; a < filas-1; a++) {
 		for (size_t b = 1; b < cols-1; b++) {
 			matriz[a][b].cobertura='*';
-			/* code */
 		}
-		/* code */
 	}
 	for (size_t x = 0; x < filas; x++) {
 			matriz[0][x].nummarco=x;
@@ -121,11 +119,11 @@ void destapar(int filas, int cols, tipoCasilla** matriz){
 	while(1){
 
 		printf("Introduzca la posición:\n");
-    	printf("Fila:\n");
-    	scanf("%d", &posFilas);
-    	printf("Columna:\n");
-    	scanf("%d", &posCols);
-    	printf("\n");
+		printf("Fila:\n");
+		scanf("%d", &posFilas);
+		printf("Columna:\n");
+		scanf("%d", &posCols);
+		printf("\n");
 
 	    	if(matriz[posFilas][posCols].simbominas=='M'){
 			matriz[posFilas][posCols].cobertura='X';
